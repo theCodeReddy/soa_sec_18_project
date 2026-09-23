@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: users
+          uri: lb://user-service
+          predicates: [Path=/api/auth/**]
+        - id: vendors
+          uri: lb://vendor-service
+          predicates: [Path=/api/vendors/**]
+        - id: products
+          uri: lb://product-service
+          predicates: [Path=/api/products/**]
+        - id: orders
+          uri: lb://order-service
+          predicates: [Path=/api/orders/**]
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedMethods: [GET, POST, PATCH, OPTIONS]
+            allowedHeaders: ["*"]
+            allowCredentials: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+management.endpoints.web.exposure.include: health,info
