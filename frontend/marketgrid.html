@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketGrid | Wave Logo</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #102e25;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* MAIN CONTAINER */
+
+.logo-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* LOGO */
+
+.logo {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 38px;
+    background: linear-gradient(145deg, #28664f, #143c30);
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(115, 232, 164, 0.18);
+    overflow: hidden;
+    cursor: pointer;
+    isolation: isolate;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.wave {
+    position: absolute;
+    width: 260%;
+    height: 260%;
+    left: -80%;
+    top: 48%;
+    border-radius: 40%;
+    background: rgba(117, 222, 160, 0.22);
+    animation: waveMove 7s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.wave.two {
+    background: rgba(205, 233, 168, 0.18);
+    animation-duration: 10s;
+    animation-direction: reverse;
+    top: 53%;
+}
+
+.wave.three {
+    background: rgba(255, 255, 255, 0.08);
+    animation-duration: 13s;
+    top: 58%;
+}
+
+/* GLOWING BORDER */
+
+.logo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(205, 233, 168, 0.6);
+    border-radius: 38px;
+    pointer-events: none;
+    z-index: 3;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* MG LETTERS */
+
+.logo-text {
+    color: #f5ffe9;
+    font-size: 58px;
+    font-weight: 900;
+    letter-spacing: -6px;
+    text-shadow: 0 0 18px rgba(217, 249, 157, 0.35);
+    z-index: 2;
+    animation: letterWave 3s ease-in-out infinite;
+    user-select: none;
+}
+
+.logo-text span {
+    display: inline-block;
+}
+
+.logo-text span:first-child {
+    animation: letterFloat 2.4s ease-in-out infinite;
+}
+
+.logo-text span:last-child {
+    animation: letterFloat 2.4s ease-in-out infinite;
+    animation-delay: 0.25s;
+}
+
+/* LOGO HOVER */
+
+.logo:hover {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 45px rgba(115, 232, 164, 0.35);
+}
+
+.logo:hover .wave {
+    background: rgba(205, 233, 168, 0.3);
+}
+
+/* BRAND NAME */
+
+.brand-name {
+    color: #f5ffe9;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-top: 30px;
+}
+
+.brand-name span {
+    color: #c9ee98;
+}
+
+/* TAGLINE */
+
+.tagline {
+    color: #a5c6b5;
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-top: 12px;
+}
+
+/* DECORATIVE LINE */
+
+.decor {
+    width: 70px;
+    height: 4px;
+    border-radius: 10px;
+    margin: 22px auto 0;
+    background: #c9ee98;
+    animation: lineWave 2s ease-in-out infinite;
+}
+
+/* GET STARTED BUTTON */
+
+.start-btn {
+    margin-top: 32px;
+    padding: 15px 38px;
+    border: 1px solid rgba(217, 249, 157, 0.5);
+    border-radius: 50px;
+    background: linear-gradient(135deg, #d8f5a8, #b5e67d);
+    color: #102e25;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(151, 217, 116, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+/* BUTTON APPEARS AFTER DELAY */
+
+.start-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.start-btn:hover {
+    box-shadow: 0 10px 35px rgba(201, 238, 152, 0.35);
+    background: #e8ffc6;
+    transform: translateY(-3px);
+}
+
+.start-btn:active {
+    transform: scale(0.96);
+}
+
+.start-btn:focus-visible {
+    outline: 2px solid #f5ffe9;
+    outline-offset: 5px;
+}
+
+/* BUTTON CLICK FEEDBACK */
+
+.logo.clicked {
+    animation: logoPop 0.5s ease-in-out;
+}
+
+@keyframes logoPop {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(0.92); }
+    70%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* WAVE ANIMATIONS */
+
+@keyframes waveMove {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes letterFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+}
+
+@keyframes letterWave {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(217, 249, 157, 0.2);
+    }
+    50% {
+        text-shadow: 0 0 25px rgba(217, 249, 157, 0.65);
+    }
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        border-color: rgba(205, 233, 168, 0.3);
+    }
+    50% {
+        border-color: rgba(205, 233, 168, 0.9);
+    }
+}
+
+@keyframes lineWave {
+    0%, 100% {
+        width: 45px;
+        opacity: 0.6;
+    }
+    50% {
+        width: 100px;
+        opacity: 1;
+    }
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 480px) {
+    .logo {
+        width: 125px;
+        height: 125px;
+        border-radius: 30px;
+    }
+
+    .logo::before {
+        border-radius: 30px;
+    }
+
+    .logo-text {
+        font-size: 47px;
+    }
+
+    .brand-name {
+        font-size: 28px;
+    }
+
+    .tagline {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+    .start-btn {
+        padding: 13px 32px;
+        font-size: 14px;
+    }
+}
+
+/* REDUCED MOTION ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .logo:hover,
+    .start-btn:hover {
+        transform: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="logo-container">
+
+    <div class="logo" id="mgLogo" role="img"
+         aria-label="MarketGrid MG animated logo">
+
+        <div class="wave"></div>
+        <div class="wave two"></div>
+        <div class="wave three"></div>
+
+        <div class="logo-text">
+            <span>M</span><span>G</span>
+        </div>
+
+    </div>
+
+    <h1 class="brand-name">
+        market<span>grid</span>
+    </h1>
+
+    <p class="tagline">COMMERCE NETWORK</p>
+
+    <div class="decor"></div>
+
+    <button class="start-btn" id="startBtn" type="button">
+        Get Started <span aria-hidden="true">→</span>
+    </button>
+
+</main>
+
+<script>
+const logo = document.getElementById("mgLogo");
+const startBtn = document.getElementById("startBtn");
+
+// Show the button after 3 seconds
+window.addEventListener("load", function () {
+    setTimeout(function () {
+        startBtn.classList.add("show");
+    }, 3000);
+});
+
+// Animate the logo when clicked
+function animateLogo() {
+    logo.classList.remove("clicked");
+
+    // Restart the animation
+    void logo.offsetWidth;
+
+    logo.classList.add("clicked");
+
+    logo.addEventListener("animationend", function handler() {
+        logo.classList.remove("clicked");
+        logo.removeEventListener("animationend", handler);
+    });
+}
+
+logo.addEventListener("click", animateLogo);
+
+// Get Started button action
+startBtn.addEventListener("click", function () {
+    animateLogo();
+
+    // Replace this with your actual homepage or onboarding URL.
+    // Example: window.location.href = "home.html";
+
+    startBtn.innerHTML = "Welcome to MarketGrid ✓";
+
+    startBtn.disabled = true;
+    startBtn.style.cursor = "default";
+});
+</script>
+
+</body>
+</html>

@@ -22,6 +22,7 @@
     <module>user-service</module>
     <module>vendor-service</module>
     <module>product-service</module>
+    <module>image-service</module>
     <module>order-service</module>
   </modules>
   <dependencyManagement>

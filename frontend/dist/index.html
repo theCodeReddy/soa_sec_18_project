@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f6f2ea" />
     <meta name="description" content="MarketGrid multi-tenant marketplace" />
-    <title>MarketGrid Commerce</title>
-    <script type="module" crossorigin src="/assets/index-x59qr_nB.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C95Ajpzg.css">
+    <title>MarketGrid React App</title>
+    <script type="module" crossorigin src="/assets/index-4HhHRxGV.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DU4k21w6.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('marketgrid-theme')
+          const theme = saved === 'light' || saved === 'dark'
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          document.documentElement.dataset.theme = theme
+        } catch { document.documentElement.dataset.theme = 'light' }
+      })()
+    </script>
   </body>
 </html>

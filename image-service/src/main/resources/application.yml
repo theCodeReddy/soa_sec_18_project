@@ -1,0 +1,6 @@
+server.port: 8005
+spring.application.name: image-service
+eureka.client.service-url.defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
+image.api-key: ${IMAGE_API_KEY:}
+image.api-base-url: ${IMAGE_API_BASE_URL:https://api.openai.com/v1}
+image.api-model: ${IMAGE_API_MODEL:gpt-image-1}
